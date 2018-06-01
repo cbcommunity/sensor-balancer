@@ -37,12 +37,9 @@ import ConfigParser
 import operator
 import logging
 from logging.config import fileConfig
-
-sys.path.append('../src/cbapi')
 import cbapi
 
-sbl = fileConfig('/etc/cb/CbSensorBalancer-logger.conf')
-logger = logging.getLogger(sbl)
+logger = None 
 
 
 def build_api_object(server_url, token, ssl_verify):
@@ -184,12 +181,15 @@ def build_cli_parser():
 
     return parser
 
-
 def main(argv):
+    global logger
     start = datetime.datetime.now()
 
     parser = build_cli_parser()
     opts, args = parser.parse_args(argv)
+    
+    sbl = fileConfig(opts.cbsensorbalancer_configs)
+    logger = logging.getLogger(sbl)
 
     logger.info('Starting Sensor Migrations')
 
