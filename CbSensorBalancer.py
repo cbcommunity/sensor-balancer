@@ -38,7 +38,6 @@ import operator
 import logging
 from logging.config import fileConfig
 
-sys.path.append('../src/cbapi')
 import cbapi
 
 sbl = fileConfig('/etc/cb/CbSensorBalancer-logger.conf')
